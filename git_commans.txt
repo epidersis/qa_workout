@@ -1,0 +1,2 @@
+eval $(ssh-agent -s)
+ssh-add "C:\Users\my_username\.ssh\github_rsa_key"
