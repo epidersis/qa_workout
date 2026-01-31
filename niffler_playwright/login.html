@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма авторизации для тестирования</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .login-form-container {
+            flex: 1;
+            min-width: 350px;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .form-title {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #4a6ee0;
+            outline: none;
+        }
+
+        .form-control.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #4a6ee0;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a5ed0;
+        }
+
+        .btn-reset {
+            background-color: #f5f5f5;
+            color: #333;
+            margin-right: 15px;
+        }
+
+        .btn-reset:hover {
+            background-color: #eaeaea;
+        }
+
+        .test-data {
+            flex: 1;
+            min-width: 350px;
+            max-width: 500px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 5px solid #4a6ee0;
+        }
+
+        .test-data h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .test-data p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .test-credentials {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .test-credentials h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .credential {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .credential-label {
+            font-weight: 600;
+            width: 120px;
+            color: #555;
+        }
+
+        .credential-value {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            flex: 1;
+        }
+
+        .instructions {
+            margin-top: 40px;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .instructions ul {
+            padding-left: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .instructions code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .response-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            font-weight: 600;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-response {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .login-form-container, .test-data {
+                max-width: 100%;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-reset {
+                margin-right: 0;
+                width: 100%;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Форма авторизации для автоматического тестирования</h1>
+            <p>Простая форма с валидацией полей, идеальная для отработки тестирования UI</p>
+        </div>
+
+        <div class="content">
+            <div class="login-form-container">
+                <h2 class="form-title">Авторизация</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Имя пользователя</label>
+                        <input type="text" id="username" class="form-control" placeholder="Введите имя пользователя">
+                        <div class="error-message" id="usernameError">Пожалуйста, введите имя пользователя</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" class="form-control" placeholder="Введите пароль">
+                        <div class="error-message" id="passwordError">Пожалуйста, введите пароль</div>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="button" class="btn btn-reset" id="resetBtn">Сбросить</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Войти</button>
+                    </div>
+
+                    <div class="response-message" id="responseMessage"></div>
+                </form>
+            </div>
+
+            <div class="test-data">
+                <h3>Данные для тестирования</h3>
+                <p>Для удобства тестирования используйте следующие учетные данные:</p>
+
+                <div class="test-credentials">
+                    <h4>Валидные данные:</h4>
+                    <div class="credential">
+                        <div class="credential-label">Имя пользователя:</div>
+                        <div class="credential-value">testuser</div>
+                    </div>
+                    <div class="credential">
+                        <div class="credential-label">Пароль:</div>
+                        <div class="credential-value">Test1234</div>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">Невалидные данные:</h4>
+                    <div class="credential">
+                        <div class="credential-label">Имя пользователя:</div>
+                        <div class="credential-value">wronguser</div>
+                    </div>
+                    <div class="credential">
+                        <div class="credential-label">Пароль:</div>
+                        <div class="credential-value">wrongpass</div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                    <strong>Подсказка:</strong> Форма проверяет заполнение полей и соответствие данных тестовым учетным записям.
+                </p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>Рекомендации для автоматического тестирования</h3>
+            <ul>
+                <li>Используйте <code>id</code> элементов для селекторов в тестах: <code>username</code>, <code>password</code>, <code>submitBtn</code>, <code>resetBtn</code></li>
+                <li>Обрабатывайте ошибки валидации через элементы с <code>id</code>: <code>usernameError</code>, <code>passwordError</code></li>
+                <li>Результат авторизации отображается в элементе с <code>id="responseMessage"</code></li>
+                <li>Тестируйте различные сценарии: валидные данные, невалидные данные, пустые поля</li>
+                <li>Проверяйте функцию сброса формы с помощью кнопки "Сбросить"</li>
+                <li>Для тестирования можно использовать Selenium, Cypress, Puppeteer или другие инструменты</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            const resetBtn = document.getElementById('resetBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const responseMessage = document.getElementById('responseMessage');
+
+            // Валидные учетные данные для тестирования
+            const validCredentials = {
+                username: 'testuser',
+                password: 'Test1234'
+            };
+
+            // Обработчик отправки формы
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Сброс предыдущих сообщений об ошибках
+                resetErrors();
+                hideResponseMessage();
+
+                // Получение значений полей
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                let isValid = true;
+
+                // Валидация имени пользователя
+                if (!username) {
+                    showError(usernameInput, usernameError, 'Пожалуйста, введите имя пользователя');
+                    isValid = false;
+                }
+
+                // Валидация пароля
+                if (!password) {
+                    showError(passwordInput, passwordError, 'Пожалуйста, введите пароль');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    return;
+                }
+
+                // Имитация проверки учетных данных
+                setTimeout(() => {
+                    if (username === validCredentials.username && password === validCredentials.password) {
+                        showSuccessMessage('Авторизация успешна! Добро пожаловать, ' + username + '!');
+                    } else {
+                        showErrorMessage('Неверное имя пользователя или пароль. Пожалуйста, попробуйте снова.');
+                    }
+                }, 500);
+            });
+
+            // Обработчик сброса формы
+            resetBtn.addEventListener('click', function() {
+                loginForm.reset();
+                resetErrors();
+                hideResponseMessage();
+            });
+
+            // Функция показа ошибки
+            function showError(inputElement, errorElement, message) {
+                inputElement.classList.add('error');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            // Сброс ошибок
+            function resetErrors() {
+                usernameInput.classList.remove('error');
+                passwordInput.classList.remove('error');
+                usernameError.style.display = 'none';
+                passwordError.style.display = 'none';
+            }
+
+            // Показать сообщение об успехе
+            function showSuccessMessage(message) {
+                responseMessage.textContent = message;
+                responseMessage.className = 'response-message success';
+                responseMessage.style.display = 'block';
+
+                // Через 5 секунд скрыть сообщение
+                setTimeout(hideResponseMessage, 5000);
+            }
+
+            // Показать сообщение об ошибке
+            function showErrorMessage(message) {
+                responseMessage.textContent = message;
+                responseMessage.className = 'response-message error-response';
+                responseMessage.style.display = 'block';
+
+                // Через 5 секунд скрыть сообщение
+                setTimeout(hideResponseMessage, 5000);
+            }
+
+            // Скрыть сообщение
+            function hideResponseMessage() {
+                responseMessage.style.display = 'none';
+            }
+
+            // Автозаполнение для тестирования (удобно для разработки)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('autofill') === 'true') {
+                usernameInput.value = validCredentials.username;
+                passwordInput.value = validCredentials.password;
+            }
+        });
+    </script>
+</body>
+</html>
