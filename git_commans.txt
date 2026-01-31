@@ -1,2 +1,5 @@
 eval $(ssh-agent -s)
 ssh-add "C:\Users\my_username\.ssh\github_rsa_key"
+git remote -v
+git config --global user.name/user.email
+git remote add origin "ssh_address.git"
