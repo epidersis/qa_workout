@@ -11,7 +11,6 @@ from pages.login_page import LoginPage
     ]
 )
 def test_login_success_click(page, base_url, username, password, expected_text):
-    # url = "file:///" + o
     login_page = LoginPage(page)
     login_page.locate_success()
     login_page.open(base_url)
@@ -27,7 +26,6 @@ def test_login_success_click(page, base_url, username, password, expected_text):
     ]
 )
 def test_login_success_enter(page, base_url, username, password, expected_text):
-    # url = "file:///" + os.path.abspath("index.html")
     login_page = LoginPage(page)
     login_page.locate_success()
     login_page.open(base_url)
@@ -43,7 +41,6 @@ def test_login_success_enter(page, base_url, username, password, expected_text):
     ]
 )
 def test_login_fail(page, base_url, username, password, expected_text):
-    # url = "file:///" + os.path.abspath("index.html")
     login_page = LoginPage(page)
     login_page.locate_fail()
     login_page.open(base_url)
