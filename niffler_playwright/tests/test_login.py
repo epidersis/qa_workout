@@ -11,7 +11,7 @@ from pages.login_page import LoginPage
     ]
 )
 def test_login_success_click(page, base_url, username, password, expected_text):
-    # .path.abspath("index.html")
+    # url = "file:///" + o
     login_page = LoginPage(page)
     login_page.locate_success()
     login_page.open(base_url)
