@@ -20,3 +20,9 @@ def test_check_on_qa_workout_pull_requests(driver, base_url):
 
     with allure.step('Проверяем, что список таких реквестов не пустой'):
         browser.element('div[aria-label="Issues"]').should(be.not_.blank)
+
+def test_fail_finding_repo_tab(driver, base_url):
+    with allure.step('Находим репозиторий'):
+        browser.open(base_url)
+        browser.element('a[data-tab-item="repositoriesSSSSSSSS"]').click()
+
